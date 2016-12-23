@@ -1,0 +1,66 @@
+.inactiveLink {
+   pointer-events: none;
+   cursor: default;
+   color: #ddf;
+}
+.customDropzones {
+  
+  height:250px;
+  width:250px;
+  border: 2px dashed;
+  border-color: #6b3f5f;
+  border-radius: 20px;
+  font-weight: bold;
+  font-size: 14px;
+  margin-top: 5px;
+  line-height: 25px;
+  display: table-cell;
+  vertical-align: middle;
+
+}
+.dz-div {
+  padding: 35px;
+  display: inline-table;
+  width:400px;
+}
+.receipt-dz {
+    height:180px;
+}
+
+#jsonstamp {
+  width: 250px;
+}
+
+.derictive {
+}
+.verify-div {
+  display: block;  
+}
+
+#dropzonePreview {
+  max-width: 250px;
+  max-height: 140px;
+}
+.preview img  {
+  max-width: 250px;
+  max-height: 140px;
+}
+
+.dropzone.dz-started .dz-message span.drop-message{
+  display:block;
+  opacity: 1; /* Don't let it disappear */
+}
+.dropzone.dz-max-files-reached .dz-message span.drop-message{
+   display:none;
+   opacity: 0; /* Make it disappear */
+}
+
+#console {
+  margin-top:50px;
+  width: 100%;
+  background-color: #aaa;
+  color: #333;
+  font-family: monospace;
+  min-height: 500px;
+  text-align:left;
+}
