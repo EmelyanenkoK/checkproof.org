@@ -17,6 +17,10 @@ var classificator = function(){
         write_to_console("EternityWall detected");
         eternitywall_wrapper();
     }
+    if(receipt["@context"] && receipt["type"] && receipt["type"].slice(0,10)=="Chainpoint") {
+        write_to_console("Chainpoint detected");
+        chainpoint_wrapper();
+    }
     
 }
 
@@ -60,6 +64,17 @@ var eternitywall_wrapper = function(){
           hash=hash.toString();
           reset_progressbar();
            eternitywall_verify(receipt, hash);
+        }
+    CryptoJS_.SHA256(checker_state["file"], update_progressbar, process_hash_of_file);
+}
+
+var chainpoint_wrapper = function(){
+        receipt = checker_state["receipt"];
+        receipt = JSON.parse(receipt);
+        var process_hash_of_file = function(hash){
+          hash=hash.toString();
+          reset_progressbar();
+          chainpoint_verify(receipt, hash);
         }
     CryptoJS_.SHA256(checker_state["file"], update_progressbar, process_hash_of_file);
 }
