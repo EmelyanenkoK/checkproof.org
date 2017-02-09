@@ -7,21 +7,23 @@ var classificator = function(){
       receipt = JSON.parse(receipt);
     }
     catch(err) {
-      write_to_console("Unknown receipt format", "error");
+        write_to_console("Error while parsing receipt", "error");
     }
     if(receipt["v"] && receipt["data"] && receipt["merkleProof"]) {
         write_to_console("Blockreceipt detected");
         blockreceipt_wrapper();
-    }
-    if(receipt["ots1"] && receipt["txHash"] && receipt["merkle"]) {
+    } else if(receipt["ots1"] && receipt["txHash"] && receipt["merkle"]) {
         write_to_console("EternityWall detected");
         eternitywall_wrapper();
-    }
-    if(receipt["@context"] && receipt["type"] && receipt["type"].slice(0,10)=="Chainpoint") {
+    } else if(receipt["@context"] && receipt["type"] && receipt["type"].slice(0,10)=="Chainpoint") {
         write_to_console("Chainpoint detected");
         chainpoint_wrapper();
+    } else if(receipt.header["chainpoint_version"] && receipt.header["chainpoint_version"].slice(0,2)=="1.") {
+        write_to_console("Chainpoint 1.x detected");
+        chainpoint1x_wrapper();
+    } else {
+        write_to_console("Unknown receipt format", "error");
     }
-    
 }
 
 var blockreceipt_wrapper = function(){
@@ -76,5 +78,16 @@ var chainpoint_wrapper = function(){
           reset_progressbar();
           chainpoint_verify(receipt, hash);
         }
+    CryptoJS_.SHA256(checker_state["file"], update_progressbar, process_hash_of_file);
+}
+
+var chainpoint1x_wrapper = function(){
+    receipt = checker_state["receipt"];
+    receipt = JSON.parse(receipt);
+    var process_hash_of_file = function(hash){
+        hash=hash.toString();
+        reset_progressbar();
+        chainpoint1x_verify(receipt, hash);
+    }
     CryptoJS_.SHA256(checker_state["file"], update_progressbar, process_hash_of_file);
 }
