@@ -7,7 +7,7 @@ var classificator = function(){
       receipt = JSON.parse(receipt);
     }
     catch(err) {
-        write_to_console("Cant recognize receipt type, assume OTS", "error");
+        write_to_console("Cant recognize receipt type, assume OTS...", "error");
         ots_wrapper();
     }
     if(receipt["v"] && receipt["data"] && receipt["merkleProof"]) {
